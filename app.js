@@ -29,8 +29,11 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/', (req, res) => {
-  res.send('hello world')
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.findByPk(id)
+    .then((todo) => res.render('detail', { todo: todo.toJSON() }))
+    .catch((error) => console.log(error))
 })
 
 app.get('/users/login', (req, res) => {
